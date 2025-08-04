@@ -5,11 +5,15 @@
         <img src="https://flowbite.com/docs/images/logo.svg" class="h-6 me-3 sm:h-7" alt="Flowbite Logo" />
         <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">PowerNotes</span>
     </a>
-    <div class="flex flex-col space-y-2 mb-4">
-      <ThemeToggle />
-      <LanguageSwitcher />
-    </div>
-      <ul class="space-y-2 font-medium">
+    <ul class="space-y-2 font-medium"  >
+         <li>
+            <LanguageSwitcher class="pl-2" />
+         </li>
+         <li>
+            <ThemeToggle />
+         </li>
+      </ul>
+      <ul class="space-y-2 font-medium border-t border-gray-200 dark:border-gray-700 mt-4 pt-4">
          <li>
             <a href="/home" class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
                 <svg class="shrink-0 w-5 h-5 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
@@ -22,6 +26,7 @@
             <WorkspacesSide />
          </li>
       </ul>
+      
    </div>
 </aside>
 </template>

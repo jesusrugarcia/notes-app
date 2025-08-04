@@ -47,7 +47,7 @@ const isOpen = ref(false)
 const currentLanguage = computed(() => languageStore.currentLanguage)
 
 const availableLanguages = [
-  { code: 'en', name: 'English', flag: '🇺🇸' },
+  { code: 'en', name: 'English', flag: '🇬🇧' },
   { code: 'es', name: 'Español', flag: '🇪🇸' },
   { code: 'fr', name: 'Français', flag: '🇫🇷' },
   { code: 'de', name: 'Deutsch', flag: '🇩🇪' },
