@@ -5,7 +5,10 @@
         <img src="https://flowbite.com/docs/images/logo.svg" class="h-6 me-3 sm:h-7" alt="Flowbite Logo" />
         <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">PowerNotes</span>
     </a>
-    <ThemeToggle />
+    <div class="flex flex-col space-y-2 mb-4">
+      <ThemeToggle />
+      <LanguageSwitcher />
+    </div>
       <ul class="space-y-2 font-medium">
          <li>
             <a href="/home" class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
@@ -25,5 +28,6 @@
 
 <script setup>
 import ThemeToggle from './ThemeToggle.vue';
+import LanguageSwitcher from './LanguageSwitcher.vue';
 import WorkspacesSide from './WorkspacesSide.vue';
 </script>

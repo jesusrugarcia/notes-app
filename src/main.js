@@ -7,11 +7,18 @@ import { createI18n } from 'vue-i18n'
 import { appTextMessages } from './app-text-messages'
 
 const pinia = createPinia()
+const app = createApp(App)
+
+// Get saved language from localStorage or default to 'es'
+const getInitialLanguage = () => {
+  const savedLanguage = localStorage.getItem('app-language')
+  return savedLanguage || 'es'
+}
+
 const i18n = createI18n({
-    locale: 'es',
+    locale: getInitialLanguage(),
     fallbackLocale: 'en',
     messages: appTextMessages
 })
 
-
-createApp(App).use(pinia).use(i18n).mount('#app')
+app.use(pinia).use(i18n).mount('#app')
