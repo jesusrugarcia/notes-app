@@ -10,6 +10,16 @@ const routes = [
     name: 'Home',
     component: () => import('@/views/HomeView.vue'),
   },
+  {
+    path: '/workspace/:id',
+    name: 'Workspace',
+    component: () => import('@/views/WorkSpaceView.vue'),
+  },
+  {
+    path: '/workspaces',
+    name: 'Workspaces',
+    component: () => import('@/views/HomeView.vue'),
+  },
 ]
 
 const router = createRouter({
