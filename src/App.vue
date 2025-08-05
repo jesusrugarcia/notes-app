@@ -2,6 +2,8 @@
 import SideBar from './components/SideBar.vue'
 import { onMounted } from 'vue'
 import { initFlowbite } from 'flowbite'
+import { RouterView } from 'vue-router'
+import RightSideBar from '@/components/RightSideBar.vue'
 
 // initialize components based on data attribute selectors
 onMounted(() => {
@@ -10,7 +12,18 @@ onMounted(() => {
 </script>
 
 <template>
-  <SideBar />
+  <div class="flex h-screen bg-white dark:bg-gray-900">
+    <!-- Left Sidebar -->
+    <SideBar />
+    
+    <!-- Main Content Area -->
+    <main class="flex-1 ml-64 overflow-y-auto">
+      <RouterView/>
+    </main>
+    
+    <!-- Right Sidebar -->
+     <RightSideBar/>
+  </div>
 </template>
 
 <style scoped>
