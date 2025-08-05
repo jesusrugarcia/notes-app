@@ -21,7 +21,8 @@
             </button>
         </li>
         <li>
-            <button type="button" class="flex items-center p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+            <button type="button" class="flex items-center p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+            @click="handleCreateWorkspaceClick">
                 <svg class="shrink-0 w-5 h-5 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-7 7V5"/>
                 </svg>
@@ -30,24 +31,40 @@
         </li>
     </ul>
 
-    
+    <CreateWorkSpaceDialog :isVisible="showCreateDialog" @close="showCreateDialog = false" 
+    @createWorkspace="CreateWorkspace" />
 </template>
 
 <script setup>
 import { ref } from 'vue';
+import CreateWorkSpaceDialog from './CreateWorkSpaceDialog.vue';
 
 var workspaces = ref([
         {
             name: 'Workspace 1',
-            id: 1
+            id: 1,
+            description: 'Workspace 1 Description'
         },
         {
             name: 'Workspace 2',
-            id: 2
+            id: 2,
+            description: 'Workspace 2 Description'
         },
         {
             name: 'Workspace 3',
-            id: 3
+            id: 3,
+            description: 'Workspace 3 Description'
         }
 ])
+
+const showCreateDialog = ref(false)
+
+const handleCreateWorkspaceClick = () => {
+    showCreateDialog.value = true
+}
+
+const CreateWorkspace = (workspace) => {
+    console.log('Creating workspace:', workspace)
+    workspaces.value.push(workspace)
+}
 </script>
