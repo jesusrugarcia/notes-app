@@ -1,42 +1,58 @@
 <template>
-<aside class="fixed top-0 left-0 z-40 w-64 h-screen bg-gray-50 dark:bg-gray-800">
-   <div class="h-full px-3 py-4 overflow-y-auto">
-    <router-link to="/" class="flex items-center ps-2.5 mb-5">
-        <img src="/logo.svg" class="h-8 w-8" alt="PowerNotes Logo" />
-        <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white ml-3">PowerNotes</span>
-    </router-link>
-    <ul class="space-y-2 font-medium"  >
-         <li>
-            <LanguageSwitcher class="pl-2" />
-         </li>
-         <li>
-            <ThemeToggle />
-         </li>
+  <aside :class="['fixed top-0 left-0 z-40 h-screen transition-all duration-300', collapsed ? 'w-24' : 'w-64', 'bg-gray-50 dark:bg-gray-900 border-r border-gray-300 dark:border-gray-700 flex flex-col justify-between']">
+    <!-- Top Section: Home & Workspaces -->
+    <div>
+      <div class="flex items-center justify-between px-3 py-4 border-b border-gray-300 dark:border-gray-700">
+        <router-link to="/" class="flex items-center">
+          <img src="/logo.svg" class="h-8 w-8" alt="PowerNotes Logo" />
+          <span v-if="!collapsed" class="ml-3 text-xl font-semibold whitespace-nowrap text-gray-900 dark:text-white">PowerNotes</span>
+        </router-link>
+        <button @click="collapsed = !collapsed" class="ml-2 p-1 rounded hover:bg-gray-300 transition-colors">
+         <SVGSideBar :image="'M5 7h14M5 12h14M5 17h14'" />
+        </button>
+      </div>
+      <div v-if="!collapsed">
+         <ul class="space-y-2 font-medium py-4 px-2">
+        <li>
+          <RouterLinkSideBar :message="'message.home'" :link="'/home'" :image="'m4 12 8-8 8 8M6 10.5V19a1 1 0 0 0 1 1h3v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3h3a1 1 0 0 0 1-1v-8.5'" :collapsed="collapsed"/>
+        </li>
+        <li>
+          <WorkspacesSide :collapsed="collapsed" />
+        </li>
       </ul>
-      <ul class="space-y-2 font-medium border-t border-gray-200 dark:border-gray-700 mt-4 pt-4">
-         <li>
-            <router-link to="/home" class="flex items-center w-full p-2 text-base text-gray-900 transition 
-            duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
-                <svg class="shrink-0 w-5 h-5 text-gray-500 transition duration-75 
-                group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white" 
-                aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" 
-                fill="none" viewBox="0 0 24 24">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m4 12 8-8 8 8M6 10.5V19a1 1 0 0 0 1 1h3v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3h3a1 1 0 0 0 1-1v-8.5"/>
-                </svg>
-               <span class="ml-3">{{ $t('message.home') }}</span>
-            </router-link>
-         </li>
-         <li>
-            <WorkspacesSide />
-         </li>
-      </ul>
+      </div>
       
-   </div>
-</aside>
+    </div>
+    <!-- Bottom Section: Theme & Language -->
+    <div v-if="!collapsed" class="px-2 pb-4 border-t border-gray-300 dark:border-gray-700">
+      <ul class="space-y-2 font-medium mt-4">
+        <li>
+          <ThemeToggle />
+        </li>
+        <li>
+            <LanguageSwitcher />
+        </li>
+      </ul>
+    </div>
+  </aside>
 </template>
 
 <script setup>
+import { ref } from 'vue';
 import ThemeToggle from './ThemeToggle.vue';
 import LanguageSwitcher from './LanguageSwitcher.vue';
 import WorkspacesSide from './WorkspacesSide.vue';
+import RouterLinkSideBar from './RouterLinkSideBar.vue';
+import SVGSideBar from './SVGSideBar.vue';
+const collapsed = ref(false);
 </script>
+
+<style scoped>
+/* Sidebar styles for Obsidian-like look */
+.aside {
+  box-shadow: 2px 0 8px 0 rgba(0,0,0,0.04);
+}
+li > *:not(:last-child) {
+  margin-bottom: 0.5rem;
+}
+</style>

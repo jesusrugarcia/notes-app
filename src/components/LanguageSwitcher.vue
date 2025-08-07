@@ -1,5 +1,5 @@
 <template>
-  <div class="relative">
+  <div class="relative" ref="switcherRef">
     <button
       @click="toggleDropdown"
       type="button"
@@ -17,7 +17,9 @@
     <!-- Dropdown menu -->
     <div
       v-if="isOpen"
-      class="absolute z-10 mt-2 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600"
+      :class="dropdownUpwards ? 'bottom-full mb-2' : 'mt-2'"
+      class="absolute z-10 left-0 w-44 bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600"
+      style="right:auto;"
     >
       <ul class="py-2 text-sm text-gray-700 dark:text-gray-200">
         <li v-for="lang in availableLanguages" :key="lang.code">
@@ -36,13 +38,15 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, onUnmounted } from 'vue'
+import { ref, computed, onMounted, onUnmounted, nextTick } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useLanguageStore } from '../stores/language'
 
 const { locale } = useI18n()
 const languageStore = useLanguageStore()
 const isOpen = ref(false)
+const dropdownUpwards = ref(false)
+const switcherRef = ref(null)
 
 const currentLanguage = computed(() => languageStore.currentLanguage)
 
@@ -70,14 +74,23 @@ const getCurrentLanguageFlag = () => {
 }
 
 const changeLanguage = (langCode) => {
-  // Update both the store and i18n locale
   languageStore.setLanguage(langCode)
   locale.value = langCode
   isOpen.value = false
 }
 
-const toggleDropdown = () => {
+const toggleDropdown = async () => {
   isOpen.value = !isOpen.value
+  if (isOpen.value) {
+    await nextTick()
+    // Check if the dropdown would overflow the bottom of the viewport
+    const el = switcherRef.value
+    if (el) {
+      const rect = el.getBoundingClientRect()
+      const spaceBelow = window.innerHeight - rect.bottom
+      dropdownUpwards.value = spaceBelow < 200 // 200px is an estimate for dropdown height
+    }
+  }
 }
 
 // Close dropdown when clicking outside
@@ -89,7 +102,6 @@ const handleClickOutside = (event) => {
 
 onMounted(() => {
   document.addEventListener('click', handleClickOutside)
-  // Sync i18n locale with store on mount
   locale.value = languageStore.getLanguage()
 })
 

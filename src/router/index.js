@@ -20,6 +20,11 @@ const routes = [
     name: 'Workspaces',
     component: () => import('@/views/HomeView.vue'),
   },
+  {
+    path: '/document/:id',
+    name: 'Document',
+    component: () => import('@/views/DocumentView.vue'),
+  },
 ]
 
 const router = createRouter({

@@ -4,7 +4,7 @@ import { onMounted } from 'vue'
 import { initFlowbite } from 'flowbite'
 import { RouterView } from 'vue-router'
 import RightSideBar from '@/components/RightSideBar.vue'
-
+import TabBar from '@/components/TabBar.vue';
 // initialize components based on data attribute selectors
 onMounted(() => {
     initFlowbite();
@@ -18,6 +18,7 @@ onMounted(() => {
     
     <!-- Main Content Area -->
     <main class="flex-1 ml-64 overflow-y-auto">
+      <TabBar />
       <RouterView/>
     </main>
     
