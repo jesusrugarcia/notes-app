@@ -44,7 +44,13 @@ onMounted(() => {
 
     <!--Content Section-->
     <div v-for="component in document.components">
-        {{ component.content }}
+        <div class="bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm rounded-2xl border border-white/20 dark:border-gray-700/20 p-6 shadow-xl m-4">
+            <div class="flex items-center text-center">
+                <div class="ml-4 ">
+                    <p class="text-3xl font-bold text-gray-900 dark:text-white">{{ component.content }}</p>
+                </div>
+            </div>
+        </div>
     </div>
     
 </template>
